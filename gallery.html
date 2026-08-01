@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Our Gallery</title>
+    <style>
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: url('heart-bg.jpg') center / cover fixed no-repeat;
+            font-family: 'Segoe UI', 'Poppins', sans-serif;
+            overflow: hidden;
+            position: relative;
+            padding: 20px 20px 40px;
+        }
+
+        .back-link {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            font-family: sans-serif;
+            text-decoration: none;
+            color: #fff;
+            font-size: 16px;
+            z-index: 30;
+            background: rgba(0, 0, 0, 0.35);
+            padding: 8px 18px;
+            border-radius: 30px;
+            backdrop-filter: blur(4px);
+            transition: background 0.3s;
+        }
+        .back-link:hover {
+            background: rgba(0, 0, 0, 0.6);
+            text-decoration: none;
+        }
+
+        /* ── Cats ── */
+        .cat-left, .cat-right {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 20;
+            width: 120px;
+            height: auto;
+            pointer-events: none;
+            animation: catFloat 3s ease-in-out infinite;
+        }
+        .cat-left {
+            left: 20px;
+        }
+        .cat-right {
+            right: 20px;
+            animation-delay: 1.5s;
+        }
+
+        @keyframes catFloat {
+            0%, 100% { transform: translateY(-50%) scale(1); }
+            50% { transform: translateY(-60%) scale(1.1); }
+        }
+
+        /* ── headline ── */
+        #hedlinecontainer {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 20px;
+            width: 100%;
+            flex-shrink: 0;
+        }
+
+        #shine {
+            font-size: 42px;
+            font-weight: bold;
+            color: rgba(255, 0, 102, 0.25);
+            z-index: 10;
+            background: linear-gradient(to right, #222 0%, #fff 50%, #222 100%) 0 0 no-repeat;
+            background-size: 150px;
+            -webkit-background-size: 150px;
+            background-clip: text;
+            -webkit-background-clip: text;
+            animation-name: shine;
+            -webkit-animation-name: shine;
+            animation-duration: 3s;
+            -webkit-animation-duration: 3s;
+            animation-iteration-count: infinite;
+            -webkit-animation-iteration-count: infinite;
+            text-shadow: 0 0 0px rgba(233, 85, 189, 0.419);
+            text-align: center;
+            line-height: 1.2;
+        }
+
+        @keyframes shine {
+            0%,
+            10% {
+                background-position: -800px;
+            }
+            20% {
+                background-position: top left;
+            }
+            90% {
+                background-position: top right;
+            }
+            100% {
+                background-position: 800px;
+            }
+        }
+
+        .carousel-wrapper {
+            width: 90%;
+            max-width: 1000px;
+            overflow: hidden;
+            position: relative;
+            background: rgba(0, 0, 0, 0.15);
+            border-radius: 20px;
+            padding: 20px 0;
+            backdrop-filter: blur(2px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            margin-bottom: 30px;
+        }
+
+        .carousel-track {
+            display: flex;
+            gap: 20px;
+            width: max-content;
+            animation: scrollCarousel 24s linear infinite;
+        }
+
+        .carousel-item {
+            flex: 0 0 auto;
+            width: 220px;
+            height: 220px;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.5);
+            border: 4px solid rgba(255, 255, 255, 0.6);
+            transition: transform 0.2s;
+        }
+
+        .carousel-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .carousel-wrapper:hover .carousel-track {
+            animation-play-state: paused;
+        }
+
+        @keyframes scrollCarousel {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(-50%);
+            }
+        }
+
+        .envelope-wrapper {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 10px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+        .envelope-wrapper:hover {
+            transform: scale(1.05);
+        }
+        .envelope-wrapper img {
+            width: 120px;
+            height: auto;
+            filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.4));
+            border-radius: 8px;
+        }
+        .envelope-label {
+            color: #fff;
+            font-size: 18px;
+            margin-top: 6px;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8);
+            font-weight: 500;
+            letter-spacing: 1px;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 4px 16px;
+            border-radius: 30px;
+            backdrop-filter: blur(2px);
+        }
+
+        .letter-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(6px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            padding: 20px;
+        }
+        .letter-overlay.open {
+            display: flex;
+        }
+
+        .letter-paper {
+            background: #fdf6e3;
+            background-image: repeating-linear-gradient(transparent, transparent 29px, #e0d5c1 29px, #e0d5c1 30px);
+            background-attachment: scroll;
+            padding: 40px 50px 40px 60px;
+            max-width: 650px;
+            width: 100%;
+            max-height: 80vh;
+            overflow-y: auto;
+            border-radius: 12px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+            position: relative;
+            font-family: 'Georgia', 'Times New Roman', serif;
+            color: #2d1f14;
+            line-height: 30px;
+            scroll-behavior: smooth;
+        }
+        .letter-paper::-webkit-scrollbar {
+            width: 8px;
+        }
+        .letter-paper::-webkit-scrollbar-track {
+            background: #e0d5c1;
+            border-radius: 10px;
+        }
+        .letter-paper::-webkit-scrollbar-thumb {
+            background: #b8a58b;
+            border-radius: 10px;
+        }
+
+        .letter-paper h2 {
+            text-align: center;
+            font-size: 28px;
+            margin-bottom: 10px;
+            font-weight: 700;
+            color: #b3415b;
+            letter-spacing: 2px;
+            border-bottom: 2px dashed #b3415b;
+            padding-bottom: 8px;
+        }
+
+        .letter-paper .greeting {
+            font-size: 20px;
+            margin-top: 10px;
+            margin-bottom: 6px;  
+            font-style: italic;
+            color: #5e3e2b;
+        }
+
+        .letter-paper .typing-paragraph {
+            font-size: 17px;
+            line-height: 1.9;
+            margin: 4px 0 20px;   
+            text-align: justify;
+            min-height: 60px;
+            color: #2d1f14;
+            white-space: pre-wrap;
+            word-break: break-word;
+        }
+
+        .letter-paper .typing-paragraph .cursor {
+            display: inline-block;
+            width: 2px;
+            height: 1.1em;
+            background: #b3415b;
+            margin-left: 2px;
+            vertical-align: text-bottom;
+            animation: blink 0.7s step-end infinite;
+        }
+        @keyframes blink {
+            0%,
+            100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0;
+            }
+        }
+
+        .letter-paper .signature {
+            text-align: right;
+            font-size: 20px;
+            font-weight: 600;
+            margin-top: 25px;
+            color: #b3415b;
+            border-top: 2px dashed #b3415b;
+            padding-top: 20px;
+            font-family: 'Brush Script MT', cursive;
+        }
+
+        .letter-paper .close-btn {
+            display: block;
+            margin: 20px 0 0 auto;
+            background: #b3415b;
+            color: #fff;
+            border: none;
+            border-radius: 40px;
+            padding: 10px 28px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background 0.3s;
+            font-family: sans-serif;
+        }
+        .letter-paper .close-btn:hover {
+            background: #8f2c44;
+        }
+
+        @media (max-width: 700px) {
+            #shine {
+                font-size: 28px;
+                background-size: 100px;
+            }
+            .carousel-item {
+                width: 150px;
+                height: 150px;
+            }
+            .carousel-track {
+                gap: 14px;
+            }
+            .carousel-wrapper {
+                padding: 14px 0;
+            }
+            .letter-paper {
+                padding: 30px 20px 30px 30px;
+                max-height: 90vh;
+            }
+            .letter-paper h2 {
+                font-size: 22px;
+            }
+            .envelope-wrapper img {
+                width: 90px;
+            }
+            .letter-paper .typing-paragraph {
+                font-size: 15px;
+                line-height: 1.8;
+            }
+            /* ── Responsive Cats ── */
+            .cat-left, .cat-right { width: 80px; }
+            .cat-left { left: 10px; }
+            .cat-right { right: 10px; }
+        }
+
+        @media (max-width: 420px) {
+            #shine {
+                font-size: 20px;
+                background-size: 70px;
+            }
+            .carousel-item {
+                width: 110px;
+                height: 110px;
+            }
+            .carousel-track {
+                gap: 10px;
+            }
+            .carousel-wrapper {
+                padding: 10px 0;
+            }
+            .letter-paper {
+                padding: 20px 12px 20px 20px;
+            }
+            .letter-paper .typing-paragraph {
+                font-size: 14px;
+                line-height: 1.7;
+            }
+            .envelope-wrapper img {
+                width: 70px;
+            }
+            .envelope-label {
+                font-size: 14px;
+            }
+            /* ── Responsive Cats ── */
+            .cat-left, .cat-right { width: 60px; }
+            .cat-left { left: 5px; }
+            .cat-right { right: 5px; }
+        }
+    </style>
+</head>
+<body>
+
+    <audio id="bgMusic" src="music4u.mp3" loop preload="auto"></audio>
+
+    <a class="back-link" href="index.html">← Back</a>
+
+    <!-- ─── CATS ─── -->
+    <img class="cat-left" src="cat_dance.gif" alt="dancing cat" />
+    <img class="cat-right" src="cat_heart.gif" alt="cat with heart" />
+
+    <div id="hedlinecontainer">
+        <div id="shine">Happy Girlfriend's Day 💞</div>
+    </div>
+
+    <div class="carousel-wrapper">
+        <div class="carousel-track" id="carouselTrack">
+        </div>
+    </div>
+
+    <div class="envelope-wrapper" id="envelopeBtn">
+        <div style="display: flex; flex-direction: column; align-items: center;">
+            <img src="envelope.png" alt="Open the letter" />
+            <span class="envelope-label">💌 Click to open</span>
+        </div>
+    </div>
+
+    <div class="letter-overlay" id="letterOverlay">
+        <div class="letter-paper" id="letterPaper">
+            <h2>My Dearest Love</h2>
+            <div class="greeting">To the one who makes my world brighter,</div>
+            <div class="typing-paragraph" id="typingParagraph">
+                <span id="typedText"></span><span class="cursor" id="cursor"></span>
+            </div>
+
+            <div class="signature"> Sincerely Yours <span style="font-family: 'Georgia', serif; font-weight: normal;"></span></div>
+            <button class="close-btn" id="closeLetter">Close</button>
+        </div>
+    </div>
+
+    <script>
+        (function() {
+            const imageCount = 8;
+            const imageNames = [];
+            for (let i = 1; i <= imageCount; i++) {
+                imageNames.push(`images/window_${i}.png`);
+            }
+            const track = document.getElementById('carouselTrack');
+            function createItems() {
+                const fragment = document.createDocumentFragment();
+                imageNames.forEach(src => {
+                    const item = document.createElement('div');
+                    item.className = 'carousel-item';
+                    const img = document.createElement('img');
+                    img.src = src;
+                    img.alt = 'memory window';
+                    item.appendChild(img);
+                    fragment.appendChild(item);
+                });
+                return fragment;
+            }
+            track.appendChild(createItems());
+            track.appendChild(createItems());
+
+            const loveItems = [
+                "I love your smile that lights up the room",
+                "I love the way you laugh at my silly jokes",
+                "I love your kind and gentle heart",
+                "I love the sparkle in your eyes",
+                "I love how you always know what I'm thinking",
+                "I love your incredible sense of humor",
+                "I love the way you wrinkle your nose when you're thinking",
+                "I love your patience with me",
+                "I love how you make every day feel special",
+                "I love your passion for life",
+                "I love the way you play with your hironos",
+                "I love how you get excited about Skullpandas and Sonny Angels",
+                "I love how you always stand up for what's right",
+                "I love your beautiful soul",
+                "I love the way you care for others",
+                "I love your intelligence and wisdom",
+                "I love how you make me feel understood",
+                "I love your cute little habits",
+                "I love the way you look at me",
+                "I love your adventurous side",
+                "I love how you make me want to be a better person",
+                "I love your hugs that make everything better",
+                "I love the sound of your voice",
+                "I love your honesty and trustworthiness",
+                "I love how you support my dreams",
+                "I love your creativity",
+                "I love the way you dance when you're happy",
+                "I love your strength during tough times",
+                "I love how you remember the little things",
+                "I love your contagious enthusiasm",
+                "I love the way you make me feel safe",
+                "I love your beautiful hands",
+                "I love how you laugh with your whole body",
+                "I love your ability to make friends anywhere",
+                "I love the way you encourage me",
+                "I love your love for animals",
+                "I love how you always see the good in people",
+                "I love your loyalty",
+                "I love the way you get excited about small things",
+                "I love your grace and poise",
+                "I love how you inspire me every day",
+                "I love your cozy hugs on cold nights",
+                "I love the way you play with your hair",
+                "I love your determination",
+                "I love how you never give up",
+                "I love your beautiful mind",
+                "I love the way you make me feel proud",
+                "I love your silly faces",
+                "I love how you make boring moments fun",
+                "I love your gentle touch",
+                "I love the way you listen to me",
+                "I love your optimism",
+                "I love how you always find a way",
+                "I love your beautiful eyes when you look at me",
+                "I love the way you care about my family",
+                "I love your generosity",
+                "I love how you make me feel loved",
+                "I love your playful side",
+                "I love the way you say my name",
+                "I love your inner strength",
+                "I love how you always make time for me",
+                "I love your taste in music",
+                "I love the way you light up a room",
+                "I love your compassion",
+                "I love how you handle challenges with grace",
+                "I love your unique perspective on life",
+                "I love the way you make me feel special",
+                "I love your kindness to strangers",
+                "I love how you always believe in me",
+                "I love your beautiful smile",
+                "I love the way you comfort me when I'm down",
+                "I love your sense of adventure",
+                "I love how you make the ordinary extraordinary",
+                "I love your radiant energy",
+                "I love the way you love with your whole heart",
+                "I love your ability to make me laugh until I cry",
+                "I love how you always know the right thing to say",
+                "I love your elegance",
+                "I love the way you hold my hand",
+                "I love your boundless love",
+                "I love how you make me feel like I'm home",
+                "I love your courage",
+                "I love the way you see beauty in everything",
+                "I love your nurturing heart",
+                "I love how you never judge me",
+                "I love your incredible taste in everything",
+                "I love the way you blush",
+                "I love your fierce loyalty to those you love",
+                "I love how you always put others first",
+                "I love your warmth",
+                "I love the way you make me feel seen",
+                "I love your sense of style",
+                "I love how you always surprise me",
+                "I love your unwavering faith in us",
+                "the way you make me want to grow old with you",
+                "your sweet voice",
+                "how you make every moment count",
+                "your pure heart",
+                "the way you love me unconditionally",
+                "your beautiful laugh",
+                "I LOVE EVERYTHING ABOUT YOU, and lastly",
+                "I love how you make me believe in love"
+            ];
+
+            const first = loveItems[0].charAt(0).toUpperCase() + loveItems[0].slice(1);
+            const rest = loveItems.slice(1, -1);
+            const last = loveItems[loveItems.length - 1];
+            let fullText = first;
+            if (rest.length > 0) {
+                fullText += ", " + rest.join(", ");
+            }
+            if (last) {
+                fullText += ", and " + last + ".";
+            }
+            fullText += " You are my world, and I fall more in love with you every single day.";
+
+            const typedTextEl = document.getElementById('typedText');
+            const cursorEl = document.getElementById('cursor');
+            const letterOverlay = document.getElementById('letterOverlay');
+            const envelopeBtn = document.getElementById('envelopeBtn');
+            const closeBtn = document.getElementById('closeLetter');
+
+            let typingTimer = null;
+            let charIndex = 0;
+            let isOpen = false;
+            let isTypingComplete = false;
+
+            function resetTyping() {
+                if (typingTimer) {
+                    clearTimeout(typingTimer);
+                    typingTimer = null;
+                }
+                typedTextEl.textContent = '';
+                charIndex = 0;
+                isTypingComplete = false;
+                cursorEl.style.display = 'inline-block';
+            }
+
+            function typeNextChar() {
+                if (charIndex < fullText.length) {
+                    typedTextEl.textContent += fullText.charAt(charIndex);
+                    charIndex++;
+                    typingTimer = setTimeout(typeNextChar, 18);
+                } else {
+                    isTypingComplete = true;
+                    cursorEl.style.display = 'none';
+                    typingTimer = null;
+                }
+            }
+
+            function openLetter() {
+                if (isOpen) return;
+                isOpen = true;
+                letterOverlay.classList.add('open');
+                resetTyping();
+                setTimeout(typeNextChar, 300);
+            }
+
+            function closeLetter() {
+                if (!isOpen) return;
+                isOpen = false;
+                letterOverlay.classList.remove('open');
+                if (typingTimer) {
+                    clearTimeout(typingTimer);
+                    typingTimer = null;
+                }
+                resetTyping();
+            }
+
+            // Events
+            envelopeBtn.addEventListener('click', openLetter);
+            closeBtn.addEventListener('click', closeLetter);
+            letterOverlay.addEventListener('click', (e) => {
+                if (e.target === letterOverlay) closeLetter();
+            });
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && isOpen) closeLetter();
+            });
+
+        })();
+    </script>
+
+    <script>
+        (function() {
+            const audio = document.getElementById('bgMusic');
+            let isPlaying = false;
+
+            function loadState() {
+                const savedTime = localStorage.getItem('musicTime');
+                if (savedTime !== null) {
+                    audio.currentTime = parseFloat(savedTime);
+                }
+            }
+
+            function saveState() {
+                if (isPlaying) {
+                    localStorage.setItem('musicTime', audio.currentTime.toString());
+                }
+            }
+
+            function startPlay() {
+                if (isPlaying) return;
+                audio.play().then(() => {
+                    isPlaying = true;
+                    audio.addEventListener('timeupdate', saveState);
+                    console.log('🎵 Music playing (gallery)');
+                }).catch(() => {
+                    console.log('⏸️ Autoplay blocked – waiting for interaction');
+                });
+            }
+
+            window.addEventListener('beforeunload', saveState);
+            document.addEventListener('visibilitychange', () => {
+                if (document.hidden) saveState();
+            });
+
+            loadState();
+            setTimeout(startPlay, 400);
+
+            const startOnInteraction = () => {
+                if (!isPlaying) {
+                    audio.play().then(() => {
+                        isPlaying = true;
+                        audio.addEventListener('timeupdate', saveState);
+                    }).catch(() => {});
+                }
+                document.removeEventListener('click', startOnInteraction);
+                document.removeEventListener('touchstart', startOnInteraction);
+                document.removeEventListener('keydown', startOnInteraction);
+            };
+            document.addEventListener('click', startOnInteraction);
+            document.addEventListener('touchstart', startOnInteraction);
+            document.addEventListener('keydown', startOnInteraction);
+
+            audio.addEventListener('ended', () => {
+                if (isPlaying) {
+                    audio.play().catch(() => {});
+                }
+            });
+        })();
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,31 @@
+*,
+*::after,
+*::before {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  position: relative;
+  min-height: 100vh;
+  background-color: #000;
+  overflow: hidden;
+}
+
+.scene {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 1.2s ease;
+}
+
+.scene.active {
+  opacity: 1;
+  pointer-events: auto;
+}
