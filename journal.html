@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Blogs, diary entries, articles, and academic papers by Jonathan Andrew Allison.">
+<title>Journal | Jonathan Andrew Allison</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600;8..60,700&family=Source+Sans+3:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="journal.css">
+</head>
+<body>
+
+    <header>
+        <div class="masthead">
+            <a class="logo" href="index.html">
+                <span class="logo-name">Jonathan Andrew Allison</span>
+                <span class="logo-role">Journal</span>
+            </a>
+            <nav>
+                <a class="nav-link" href="index.html">&larr; Back to Portfolio</a>
+            </nav>
+        </div>
+        <div class="masthead-rule" aria-hidden="true"></div>
+    </header>
+
+    <main class="journal-main">
+
+        <div class="journal-header">
+            <div>
+                <p class="eyebrow">Writing</p>
+                <h1>Journal &amp; Writing</h1>
+                <p class="subtitle">Blogs, diary entries, articles, and academic papers.</p>
+            </div>
+            <div class="journal-header-actions">
+                <button id="write-blog-btn" class="btn-primary" type="button">Write a Blog</button>
+                <button id="exit-admin-btn" class="btn-secondary" type="button" hidden>Exit Admin</button>
+            </div>
+        </div>
+
+        <!-- ADMIN ENTRY FORM (hidden until passcode is entered) -->
+        <div class="card entry-form-card" id="entry-form-card" hidden>
+            <h2 id="entry-form-title">New Entry</h2>
+            <form id="entry-form">
+                <div class="form-row">
+                    <label for="entry-title">Title</label>
+                    <input type="text" id="entry-title" placeholder="Give this entry a title" required>
+                </div>
+
+                <div class="form-row form-row-split">
+                    <div>
+                        <label for="entry-category">Type</label>
+                        <select id="entry-category" required>
+                            <option value="Article">Article</option>
+                            <option value="Diary">Diary</option>
+                            <option value="Academic Paper">Academic Paper</option>
+                            <option value="Travel">Travel</option>
+                            <option value="Technology">Technology</option>
+                            <option value="Literature">Literature</option>
+                            <option value="Life &amp; Culture">Life &amp; Culture</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="entry-date">Date</label>
+                        <input type="date" id="entry-date" required>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <label for="entry-content">Entry</label>
+                    <textarea id="entry-content" rows="7" placeholder="Write here" required></textarea>
+                </div>
+
+                <div class="form-row">
+                    <label for="entry-image">Image (optional)</label>
+                    <input type="file" id="entry-image" accept="image/*">
+                    <div id="image-preview-wrap" class="image-preview-wrap" hidden>
+                        <img id="image-preview" alt="Selected image preview">
+                        <button type="button" id="remove-image-btn" class="btn-text">Remove image</button>
+                    </div>
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn-primary" id="save-entry-btn">Save and Post</button>
+                    <button type="button" class="btn-secondary" id="cancel-edit-btn" hidden>Cancel Edit</button>
+                </div>
+                <p id="form-error" class="lock-error" hidden></p>
+            </form>
+        </div>
+
+        <!-- FILTER (public) -->
+        <div class="filter-bar" id="filter-bar">
+            <button class="filter-pill active" data-filter="All">All</button>
+            <button class="filter-pill" data-filter="Article">Article</button>
+            <button class="filter-pill" data-filter="Diary">Diary</button>
+            <button class="filter-pill" data-filter="Academic Paper">Academic Paper</button>
+            <button class="filter-pill" data-filter="Travel">Travel</button>
+            <button class="filter-pill" data-filter="Technology">Technology</button>
+            <button class="filter-pill" data-filter="Literature">Literature</button>
+            <button class="filter-pill" data-filter="Life &amp; Culture">Life &amp; Culture</button>
+        </div>
+
+        <!-- ENTRY LIST (public) -->
+        <div id="entry-list" class="entry-list"></div>
+        <p id="empty-state" class="empty-state" hidden>No entries yet.</p>
+
+    </main>
+
+    <!-- PASSCODE MODAL -->
+    <div id="passcode-modal" class="modal-overlay" hidden>
+        <div class="modal-card">
+            <p class="eyebrow">Admin Access</p>
+            <h2 class="lock-title">Enter Passcode</h2>
+            <p class="lock-copy">Writing and editing entries requires the passcode. Everyone can still read what's posted.</p>
+            <form id="lock-form" autocomplete="off">
+                <input type="password" id="passcode-input" placeholder="Passcode" autocomplete="off" required>
+                <div class="modal-actions">
+                    <button type="submit" class="btn-primary">Unlock</button>
+                    <button type="button" id="modal-cancel-btn" class="btn-secondary">Cancel</button>
+                </div>
+            </form>
+            <p id="lock-error" class="lock-error" hidden>Incorrect passcode. Try again.</p>
+        </div>
+    </div>
+
+    <script src="journal.js"></script>
+</body>
+</html>

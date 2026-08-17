@@ -1,0 +1,317 @@
+/* ==========================================================================
+   JOURNAL PAGE
+   ========================================================================== */
+
+.journal-main {
+    padding: 3rem 5% 5rem;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+/* ---- Passcode modal ---- */
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(20, 24, 31, 0.45);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem;
+    z-index: 2000;
+}
+
+.modal-card {
+    max-width: 420px;
+    width: 100%;
+    text-align: center;
+    border: 1px solid var(--border-color);
+    border-radius: 2px;
+    padding: 2.5rem 2rem;
+    background: var(--card-bg);
+    box-shadow: 0 8px 28px rgba(20, 24, 31, 0.16);
+}
+
+.modal-actions {
+    display: flex;
+    gap: 0.75rem;
+}
+
+.modal-actions .btn-primary,
+.modal-actions .btn-secondary {
+    flex: 1;
+}
+
+.lock-title {
+    font-size: 1.5rem;
+    margin-bottom: 0.7rem;
+}
+
+.lock-copy {
+    font-size: 0.92rem;
+    margin-bottom: 1.5rem;
+}
+
+#lock-form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.lock-error {
+    color: #A23B3B;
+    font-family: var(--mono);
+    font-size: 0.8rem;
+    margin-top: 1rem;
+}
+
+/* ---- Journal app shell ---- */
+.journal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.journal-header h1 {
+    font-size: 2rem;
+    margin-bottom: 0.4rem;
+}
+
+.journal-header-actions {
+    display: flex;
+    gap: 0.75rem;
+    flex-shrink: 0;
+}
+
+/* ---- Buttons ---- */
+.btn-primary {
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    font-family: var(--sans);
+    font-weight: 600;
+    font-size: 0.92rem;
+    padding: 0.75rem 1.4rem;
+    border-radius: 2px;
+    cursor: pointer;
+    transition: background var(--transition-speed) ease;
+}
+
+.btn-primary:hover { background: #142943; }
+
+.btn-secondary {
+    background: transparent;
+    color: var(--text-main);
+    border: 1px solid var(--border-color);
+    font-family: var(--sans);
+    font-weight: 600;
+    font-size: 0.88rem;
+    padding: 0.65rem 1.2rem;
+    border-radius: 2px;
+    cursor: pointer;
+    transition: border-color var(--transition-speed) ease, color var(--transition-speed) ease;
+}
+
+.btn-secondary:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+}
+
+.btn-text {
+    background: none;
+    border: none;
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    cursor: pointer;
+    text-decoration: underline;
+    padding: 0;
+}
+
+.btn-text:hover { color: var(--accent); }
+
+.btn-danger {
+    background: none;
+    border: none;
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    color: #A23B3B;
+    cursor: pointer;
+    padding: 0;
+    text-decoration: underline;
+}
+
+/* ---- Entry form ---- */
+.entry-form-card { margin-bottom: 2rem; }
+
+.form-row { margin-bottom: 1.1rem; }
+.form-row:last-of-type { margin-bottom: 0; }
+
+.form-row label {
+    display: block;
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 0.45rem;
+}
+
+.form-row-split {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.1rem;
+}
+
+input[type="text"],
+input[type="date"],
+input[type="password"],
+select,
+textarea {
+    width: 100%;
+    font-family: var(--sans);
+    font-size: 0.95rem;
+    color: var(--text-main);
+    background: #FFFFFF;
+    border: 1px solid var(--border-color);
+    border-radius: 2px;
+    padding: 0.65rem 0.8rem;
+}
+
+textarea { resize: vertical; line-height: 1.6; }
+
+input:focus,
+select:focus,
+textarea:focus {
+    outline: none;
+    border-color: var(--accent);
+}
+
+input[type="file"] {
+    font-family: var(--sans);
+    font-size: 0.88rem;
+    color: var(--text-muted);
+}
+
+.image-preview-wrap {
+    margin-top: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.image-preview-wrap img {
+    max-width: 160px;
+    max-height: 120px;
+    object-fit: cover;
+    border: 1px solid var(--border-color);
+    border-radius: 2px;
+}
+
+.form-actions {
+    display: flex;
+    gap: 0.9rem;
+    margin-top: 1.4rem;
+}
+
+/* ---- Filter bar ---- */
+.filter-bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    margin-bottom: 1.75rem;
+}
+
+.filter-pill {
+    background: transparent;
+    border: 1px solid var(--border-color);
+    color: var(--text-muted);
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    padding: 0.4rem 0.85rem;
+    border-radius: 999px;
+    cursor: pointer;
+    transition: border-color var(--transition-speed) ease, color var(--transition-speed) ease, background var(--transition-speed) ease;
+}
+
+.filter-pill:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+}
+
+.filter-pill.active {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #fff;
+}
+
+/* ---- Entry list ---- */
+.entry-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.entry-card {
+    border: 1px solid var(--border-color);
+    border-radius: 2px;
+    padding: 1.75rem;
+    background: var(--card-bg);
+    box-shadow: 0 1px 3px rgba(20, 24, 31, 0.04);
+}
+
+.entry-card img {
+    width: 100%;
+    max-height: 320px;
+    object-fit: cover;
+    border-radius: 2px;
+    margin-bottom: 1.1rem;
+}
+
+.entry-card-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 1rem;
+    margin-bottom: 0.4rem;
+}
+
+.entry-card h3 { margin-bottom: 0.2rem; }
+
+.entry-meta {
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    color: var(--accent);
+    margin-bottom: 0.9rem;
+}
+
+.entry-body {
+    color: var(--text-muted);
+    white-space: pre-wrap;
+    line-height: 1.7;
+}
+
+.entry-actions {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1.1rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border-color);
+}
+
+.empty-state {
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 0.92rem;
+    padding: 2rem 0;
+}
+
+@media (max-width: 640px) {
+    .form-row-split {
+        grid-template-columns: 1fr;
+    }
+    .journal-header {
+        flex-direction: column;
+    }
+}
